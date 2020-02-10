@@ -1,0 +1,380 @@
+---
+title: "Priority Flow Workflow Example"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+
+## Background Information and Setup
+First you will need to load the Priority Flow library and the fields library for plotting. If you haven't installed the PriorityFlow library yet you can learn how in the ReadMe of the GitHub repo
+```{r, echo=TRUE, results='hide', message=FALSE}
+knitr::opts_knit$set(root.dir = '/Users/laura/Documents/Research/HeiHei/Topography') #CHANGE to your working directory 
+rm(list=ls())
+library(PriorityFlow)
+library(fields)
+library(raster)
+```
+
+You can learn more about the library and its functions using the help function and clicking on the index:
+```{r}
+help("PriorityFlow")
+```
+
+These are the three inputs we will be using for our domain processing:
+
+ 1. The unprocessed  DEM (Digital Elevation Model)
+ 2. A mask of the watershed we are interested in
+ 3. A mask of our desired  drainage network
+ 
+*NOTE: the only required input is an DEM the other two are optional depending on how  you would like to process  things.*
+```{r}
+#Read in the tif files as rasters and convert to matrixes trasformed so that indices are [x,y]
+
+#mask
+maskR=raster("domain_mask.tif")
+mask=as.matrix(maskR)
+ny=nrow(mask)
+nx=ncol(mask)
+maskT=t(mask[ny:1,])
+
+#channel 
+channelR=raster("river_mask.tif")
+channel=as.matrix(channelR)
+channelT=t(channel[ny:1,])
+
+#DEM
+demR=raster("Top_Elevation.tif")
+dem=as.matrix(demR)
+demT=t(dem[ny:1,])
+
+#Terminal Lakes
+lakesR=raster("terminal_lakes_mask.tif")
+lakes=as.matrix(lakesR)
+lakesT=t(lakes[ny:1,])
+
+#make a mask that excludes the terminal lakes
+lakemaskT=maskT-lakesT
+
+#Get the border
+border=GetBorder(lakemaskT)
+
+#plot the inputs
+quartz()
+par(mfrow=c(2,2))
+image.plot(demT, main="Elevation")
+image.plot(maskT, main="Watershed Mask")
+image.plot(channelT, main="River Network")
+image.plot(lakesT, main="Terminal Lakes")
+
+quartz()
+image.plot(lakemaskT+channelT)
+
+```
+
+## Step 1: Smoothing the DEM
+This step is optional but can lead to better performance. 
+```{r}
+  library("whitebox")
+  #gaussian_filter("./CONUS_oridem1km.tif","./CONUS_dem1km_wbt.tif", sigma = 1, verbose_mode = FALSE)
+  feature_preserving_smoothing("./Top_Elevation.tif","./Top_Elevation_smoothed.tif", filter = 20, norm_diff = 15, num_iter = 3, max_diff = 5, zfactor = 1, verbose_mode = FALSE)
+  detach('package:whitebox', unload=TRUE)
+  
+  #save the original DEM
+  demTunsmth=demT
+  
+  demR=raster("Top_Elevation_smoothed.tif")
+  dem=as.matrix(demR)
+  demT=t(dem[ny:1,])
+  
+  #plotting 
+  #quartz()
+  #par(mfrow=c(1,3))
+  #image.plot(demTunsmth)
+  #image.plot(demT)
+  #image.plot(demTunsmth-demT)
+  
+  
+```
+
+
+## Step 2: Processing the DEM with the Priority Flood Algorithm to ensure drainage
+In this step the priority flow algorithm will be used to traverse the raw DEM and ensure that every grid cell in the domain has a pathway to exit along D4 drainage pathways (i.e. there are no unintended internal sinks).  
+
+The primary outcomes of this step are:
+
+1. A processed DEM where elevations have been adjusted to ensure drainage
+2. A map of flow directions for every grid cell (Unless a different numbering scheme is specified the following will be used: 1=down, 2=left, 3=up, 4=right) 
+
+### 2.1 Find all of the outlet points. 
+Priority flow needs a set of outlet points to start processing from. 
+The init function can help you find these. You give it your DEM and a mask of your active domain and it will find 
+all of the border cells and set these as outlets. Alternatively you can give it a channel mask in addition to your domain 
+mask and then it will only set as outlest cells that are on your channel mask and fall on the edge of the domain. 
+
+The primary output from this funciton is init$queue which is a list of cells that will be used to start the DEM processig from
+```{r}
+#Find all of the border cells in your domain and identify all of the river cells that fall on border cells. 
+#These will be the starting point for processing
+init=InitQueue(demT, domainmask=lakemaskT, initmask=channelT) 
+#you can see the outputs of this function (and any function) by doing
+ls(init)
+
+#some plotting to check things out
+#quartz()
+#image.plot(init$marked[175:375,450:500]+lakemaskT[175:375,450:500])
+#image.plot(init$marked[,100:200]+lakemaskT[, 100:200])
+```
+
+### 2.2 Process the DEM using Priority Flood
+Now you will start from the outlet points you identified and process the DEM to ensure that every cell can drain. 
+Here we are goig to do it in two parts. 
+- First we process all of the cells along the river network to make sure they drain to our outlet points
+- Then we process all of the remaining cells to make sure they drain to the river. 
+
+```{r}
+##Traverse the stream network
+t0=proc.time()
+trav1 = StreamTraverse(dem=demT, mask=channelT, queue=init$queue, marked=init$marked, basins=init$basins, printstep=F, epsilon=0)
+t1=proc.time()
+print(paste("First Pass:", round(t0[3]-t1[3],1), "sec"))
+print(paste("First Pass:", round(sum(trav1$marked)/sum(channelT)*100,1), " % cells processed"))
+
+##Look for orphaned branches and continue traversing until they are all connected
+norphan=1
+lap=1
+while(norphan>0){
+  t1=proc.time()
+  #look for orphan branches
+  RivBorder=border+trav1$marked 
+  RivBorder[RivBorder>1]=1
+  orphan=FindOrphan(trav1$dem, mask=channelT, marked=RivBorder)
+  norphan=orphan$norphan
+  print(paste("lap", lap, norphan, "orphans found"))
+  
+  #go around again if orphans are found
+  if(norphan>0){
+    trav2 = StreamTraverse(trav1$dem, mask=channelT, queue=orphan$queue, marked=trav1$marked, basins=trav1$basins, step=trav1$step, direction=trav1$direction, printstep=F, epsilon=0)
+    trav1=trav2
+    lap=lap+1
+    t2=proc.time()
+    print(paste("Lap", lap , round(t2[3]-t1[3],1), "sec"))
+  } else {
+    print("Done!  No orphan branches found")
+  }
+  
+}
+print(paste("Final pass:", round(sum(trav1$marked * channelT)/sum(channelT)*100,1), " % cells processed"))
+t3=proc.time()
+print(paste("Total Time:" , round(t3[3]-t0[3],1), "sec"))
+
+##Initialize the queue with every cell on the processed river and the boundary. 
+###River border equals to the traversed river plus domain border plus lake and sink border.
+#RivBorder= border + trav1$marked 
+RivBorder= trav1$marked 
+
+###Initilize the updated river border.
+init=InitQueue(trav1$dem,  border=RivBorder)
+
+
+## Process all the cells outside the channel network
+t4=proc.time()
+travHS=D4TraverseB(trav1$dem, queue=init$queue, marked=init$marked, mask=lakemaskT, direction=trav1$direction, basins=trav1$basins, step=trav1$step, epsilon=0.1, printstep=F, nchunk=1000) #adding lakes in the mask
+t5=proc.time()
+print(paste("Total Time:" , round(t5[3]-t4[3],1), "sec"))
+
+```
+
+
+## Step 3: Smoothing along the drainage network
+*Step 1* will ensure a drainage network which is fully connected and where all grid cells are guaranteed to drain to one of the target points (usually the edge of the domain). However, there can still be significant noise along the drainage path where jumps in the DEM can impact simulated flow performance. To address this you can do some additional smoothing along the river network. 
+
+#### Step 3.1: Calculate drainage areas
+Before you can smooth your river network you need to know where it is. To do this you can use the flow direction file created in *Step 1* to calculate the drainage area for every grid cell in the domain
+
+```{r}
+area=drainageArea(travHS$direction, mask=maskT, printflag=F)
+
+image.plot(area,main="drainage Area", zlim=c(0,200))
+
+```
+
+*Note: In this example I used the watershed mask for the area calculations to be consistent with last DEM processing choices made. However, a mask is not required at this step if you did the DEM processing without applying a mask (i.e. as long as you have flow directions for the whole domain)*
+
+#### Step 3.2: Use a drainage area threshold to define a river network
+Next you can use the flow direction file and the drainage areas to define a river network given a user specified drainage area threshold to define rivers (i.e. any cell with >=riv_th cells draining to it will count as a river)
+```{r}
+subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=200, merge_th=0) 
+```
+*Note:Try changing the riv_th to change the density of the river network that is created. The merge threshold is used to lump together river segments with drainage areas below this threshold. Use help(CalcSubbasins) to learn more about the options for this function *
+
+Take a look at the resulting river network
+```{r}
+par(mfrow=c(1,2))
+image.plot(subbasin$segments, main="Stream Segments")
+image.plot(subbasin$subbasins, main="Sub basins")
+```
+
+#### Step 3.3: Smooth the DEM along river segments
+Now you can apply smoothing along your river segments
+This function requires:
+
+1. The processed DEM from the PriorityFlow processing in Step 1
+2. The flow directions from the PriorityFlow processing in Step 1
+3. Information on the starting and ending points of every  river  segment calculated with the subbasin function (*subbasin$summary*)
+4. A map of the river segments from the subbasin function (*subbasin$segments*)
+5. A minimum elevation difference between designated stream cells and non stream cells that are draining to the stream segments (specified here as epsilon). 
+
+This function will calculate the elevation difference from the start to the end of every  segment and apply a constant delta  along the length of the segment to get from the top to the bottom. Then it will traverse back  up the drainage network checking that in the stream adjustment process no stream cells were raised above their surrounding bank cells using the user specified epsilon value to enforce a difference of at least epsilon between bank and stream cells. IF a bank cell needs to be raised to meet the epsilon threshold the algorithm will continue traversing up the hill slope according to the flow direction file raising cells until every neighboring  cell can drain with the required epsilon criteria. 
+```{r}
+RivSmooth=RiverSmooth(dem=travHS$dem, travHS$direction, mask=lakemaskT, river.summary=subbasin$summary, river.segments=subbasin$segments, bank.epsilon=0.1)
+```
+
+*Note: The mask is optional for this function too. A watershed mask only needs to be provided here if the flow directions were only calculated within the mask in Step 1.*
+
+Now you can do some plotting to see how this smoothing changed the DEM
+```{r}
+#plot the differences in the DEM along the hillslopes and the rivers
+par(mfrow=c(1,3))
+  #calcualte elevation differences
+  dif=(RivSmooth$dem.adj-travHS$dem)
+  #mask out the river mask to plot differences along streams and on hillslopes separately
+  rivmask=subbasin$segments
+  rivmask[which(rivmask>0)]=1
+  hillmask=matrix(1, nrow=dim(rivmask)[1], ncol=dim(rivmask)[2])
+  hillmask[which(rivmask>0)]=0
+  difhill=dif*hillmask
+  difriv=dif*rivmask
+  #replacing 0s with NAs
+  dif[dif==0]=NA
+  difriv[difriv==0]=NA
+  difhill[difhill==0]=NA
+  #plot
+  image.plot(dif, main="All Elev. Difs", col=rainbow(21)) #col=viridis(21))
+  image.plot(difriv, main="Stream Cell Difs", col=rainbow(21)) #col=viridis(21))
+  #image(rivmask, breaks=c(0,0.5,1.5), col=rev(gray.colors(2)), add=F)
+  if(length(which(is.na(difhill)==F))>0){
+    image.plot(difhill, main="Non Stream Cell Difs", col=rainbow(21)) #col=viridis(21))
+  }
+```
+
+Also you can use the *PathExtract* function to walk downstream from any point in the domain and look at how this processing changed elevations along any flow path. 
+
+For this example I'm using the subbasin$summary table to pick one of the stream segment starts as my starting point but you could give the PathExtract function any point in the domain as its starting point
+```{r}
+segment=45 #pick a stream segment to walk down from, change this number to see a different segment 
+
+#Use PathExtract to extract outputs along a flowpath
+start=c(subbasin$summary[segment,2], subbasin$summary[segment,3])
+streamline_old=PathExtract(input=travHS$dem, direction=travHS$direction, mask=lakemaskT, startpoint=start)
+streamline_new=PathExtract(input=RivSmooth$dem.adj, direction=travHS$direction, mask=lakemaskT, startpoint=start)
+streamline_riv=PathExtract(input=subbasin$segments, direction=travHS$direction, mask=lakemaskT, startpoint=start)
+
+transect_old=streamline_old$data
+transect_new=streamline_new$data
+transect_riv=streamline_riv$data
+
+#plot the path
+#quartz()
+par(mfrow=c(1,2))
+  #plot the elevation transects
+  nstep=length(transect_riv)
+  slist=which(transect_riv[2:nstep]!=transect_riv[1:(nstep-1)])+0.5 #find the breaks between segments
+  limit=range(c(transect_old, transect_new))
+  plot(1:nstep, transect_old, ylim=c(limit[1],limit[2]), col=1, lwd=2, type='l', xlab="Step", ylab="Elevation")
+  lines(1:nstep, transect_new, lty=1, lwd=2, col=3)
+  abline(v=slist, col=1, lty=3)
+  legend("bottomleft", c("Old Elevations", "New Elevations", "Segment breaks"), bty='n', lty=c(1,1,3), col=c(1,3,1), lwd=c(2,2,1))
+
+  #plot the path
+  segment.plot=subbasin$segments
+  segment.plot[segment.plot>0]=1
+  image(segment.plot, breaks=c(0,0.5,1.5), col=rev(gray.colors(2)), add=F, main="Path Map")
+  plot.path=streamline_riv$path.mask
+  plot.path[plot.path==0]=NA
+  image(plot.path, add=T)
+```
+
+
+## Step 4: Calculate the slopes
+
+## 4.1 Calculate the slopes for the entire domain 
+Once you have the DEM how you want it you can calculate the slopes for use in ParFlow. Here I am using the *SlopeCalcStan* function which does not do any downwinding and is intended for use with the **OverlandKinematic** or **OverlandDiffusive** boundary conditions in ParFlow. If you are using the **OverlandFlow** boundary condition you should use the *SlopeCalcUP* function documented in the  Downwinding_Workflow_Examples.
+
+The mandatory inputs for this function are:
+
+1. The processed DEM that you would like to calculate the slopes from
+2. The flow direction file from *Step 1*
+3. The resolution of the DEM: dx, dy (this should be in the same units as your elevations are reported in)
+
+The following optional inputs are also being used here (refer to the help("SlopeCalcStan) for more details):
+
+1. minslope -  This ensures that the magnitude of all slopes is greater than or equal to this value along the flow directions given in the flow direction file
+2. maxslope - This sets a global maximum slope magnitude
+3. Secondary TH - If this is set to 0 then all slopes not along the primary flow directions (i.e. the x slope for a cell with a primary direction up or down,  or the y slope for a cell with a primary direction to the left or right) will be set to zero. If this is set to the default -1 value no adjustments will be made
+
+```{r}
+slopesCalc=SlopeCalStan(dem=RivSmooth$dem.adj, mask=lakemaskT, direction=travHS$direction, minslope=1e-5, maxslope=1, dx=1000, dy=1000, secondaryTH=-1) 
+```
+
+## 4.2 Adjust the slopes along the river cells
+This function allows you to provide an alternate min slope for the primary directions of river cells than was used in the previous step
+Also with this function you can remove and seconary slopes (i.e. slopes normal to the primary direciton of flow) that would lead to additional outflow directions in river cells (Remove.Sec=TRUE)
+```{r}
+river.mask=subbasin$segments
+river.mask[river.mask>0]=1
+slopesCalc2=RivSlope(direction=travHS$direction, slopex=slopesCalc$slopex, slopey=slopesCalc$slopey, minslope=1e-4, RiverMask=river.mask, Remove.Sec=TRUE)
+```
+
+
+Plotting the resulting slopes
+```{r}
+slopex=slopesCalc2$slopex
+slopey=slopesCalc2$slopey
+
+sxplot=slopex
+sxplot[which(slopex==0)]=NA
+syplot=slopey
+syplot[which(slopey==0)]=NA
+
+#plot
+par(mfrow=c(1,2))
+image.plot(sxplot)
+image.plot(syplot) 
+```
+
+
+## Step 4: Write slope files out in ParFlow ascii format
+Any of  the matrices calculated here can be written out in any user preferred format. Here I just  provide an example of how to write out the slope files in the standard format needed for ParFlow. This ASCII file can be converted to pfb or silo using standard pftools. 
+
+```{r}
+nx=dim(slopex)[1]
+ny=dim(slopex)[2]
+slopexPF=slopeyPF=DEMPF=DIRPF=rep(0, nx*ny)
+jj=1
+for(j in 1:ny){
+  for(i in 1:nx){
+    slopexPF[jj]=slopex[i,j]
+    slopeyPF[jj]=slopey[i,j]
+    DEMPF[jj]=RivSmooth$dem.adj[i,j]
+    DIRPF[jj]=travHS$direction[i,j]
+    jj=jj+1
+  }
+}
+
+
+write.table( t(c(nx,ny,1)), "SlopeX.sa", append=F, row.names=F, col.names=F)
+write.table(slopexPF, fout, append=T, row.names=F, col.names=F)
+
+write.table( t(c(nx,ny,1)), "SlopeY.sa", append=F, row.names=F, col.names=F)
+write.table(slopeyPF, fout, append=T, row.names=F, col.names=F)
+
+write.table( t(c(nx,ny,1)), "DEM.Processed.sa", append=F, row.names=F, col.names=F)
+write.table(DEMPF, fout, append=T, row.names=F, col.names=F)
+
+write.table( t(c(nx,ny,1)), "Flow.Direction.sa", append=F, row.names=F, col.names=F)
+write.table(DIRPF, fout, append=T, row.names=F, col.names=F)
+
+```
+
