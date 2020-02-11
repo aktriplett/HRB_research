@@ -28,3 +28,11 @@ wu2 = as.matrix(wu1)
 setwd("~/Documents/Heihe_Basin_Project/Heiflow_data/home/eseftp/Heihe_River_Basin/GIS/General")
 soil_map = raster(x = "Soil/soil_map.tif")
 plot(soil_map)
+
+wu = raster(x = "windu/windu_2000-01-01.tif")
+quartz()
+levelplot(wu)
+
+wv = raster(x = "windv/windv_2000-01-01.tif")
+quartz()
+levelplot(wv)
