@@ -5,7 +5,7 @@ library(sp)
 library(ggspatial)
 library(rasterVis)
 library(tidyverse)
-
+setwd("~/Documents/Heihe_Basin_Project/Heihe_R/data_output")
 load("indicator_file_output.RData") 
 
 

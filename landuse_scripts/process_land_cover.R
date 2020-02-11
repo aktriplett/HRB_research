@@ -3,7 +3,7 @@ library(rgdal)
 library(raster)
 
 #make rasters
-setwd("~/Documents/Heihe_Basin_Project/QGIS_projects") 
+setwd("~/Documents/Heihe_Basin_Project/QGIS_projects/HRB_domain_sfs") 
 #landuse2000 = raster(x = "landuse2000_full.tif")
 #landuse2007 = raster(x = "LU2007_full.tif")
 landuse2011 = raster(x = "landuse2011_EPSG32647_HKextent.tif")
@@ -37,7 +37,7 @@ landuse2011[landuse2011 == 67] = 16
 landuse2011[landuse2011 == 121] = 12
 landuse2011[landuse2011 == 122] = 12
 landuse2011[landuse2011 == 123] = 12
-
+quartz()
 plot(landuse2011)
 
 
