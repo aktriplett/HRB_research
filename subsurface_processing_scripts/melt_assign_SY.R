@@ -47,8 +47,7 @@ pf_porosity1 = r3
 ny = 548 #num rows
 nx = 404 #num cols
 nz = 5 #num layers
-pf_porosity_ind_map=array(0,dim = c(ny,nx,nz))
-pf_porosity_int_map = array(0,dim = c(ny,nx,5)) 
+
 hf_porosity_map=array(0,dim = c(ny,nx,5))
 a = pf_porosity1
 for(j in 1:ny){
@@ -59,6 +58,10 @@ for(z in 2:5){
      hf_porosity_map[,,z] = hf_porosity_map[,,1] #applies same porosity values to layers 2-5
 }
 hf_porosity_map[is.na(hf_porosity_map)] = 0 #final result is a map with all five layers having the simplified porosity values .1, .2 and .3 applied to the same locations
+
+##Save Output
+setwd("~/Documents/Heihe_Basin_Project/Heihe_R/data_output/indicator_output") #for desktop
+save(hf_porosity_map, file = "hf_porosity_map.Rdata")
 
 zero <-"#B3B3B3" # (gray color, same as your figure example)
 lowest = "#000000"
