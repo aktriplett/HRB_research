@@ -36,3 +36,18 @@ levelplot(wu)
 wv = raster(x = "windv/windv_2000-01-01.tif")
 quartz()
 levelplot(wv)
+
+net_rad = raster(x = "netrad/netrad_2000-01-01.tif")
+quartz()
+levelplot(net_rad)
+
+setwd("~/Documents/Heihe_Basin_Project/Heiflow_data/home/eseftp/Heihe_River_Basin/GIS/General/Irrigation/pumping") 
+
+diversion = raster(x = "diversion_2000-01-01.tif")
+quartz()
+plot(diversion)
+
+setwd("~/Documents/Heihe_Basin_Project/Heiflow_data/home/eseftp/Heihe_River_Basin/GIS/General/Irrigation/Irrigation") 
+irri = raster(x = "WRA.shp")
+quartz()
+levelplot(irri)

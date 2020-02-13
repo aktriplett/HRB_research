@@ -140,6 +140,7 @@ Now you will start from the outlet points you identified and process the DEM to 
 Here we are going to do it in two parts. 
 - First we process all of the cells along the river network to make sure they drain to our outlet points
 - Then we process all of the remaining cells to make sure they drain to the river. 
+##Write out t file of new dEM to see how it relates to old
 
 ```{r}
 ##Traverse the stream network
@@ -212,8 +213,9 @@ image.plot(area,main="drainage Area", zlim=c(0,200))
 
 #### Step 3.2: Use a drainage area threshold to define a river network
 Next you can use the flow direction file and the drainage areas to define a river network given a user specified drainage area threshold to define rivers (i.e. any cell with >=riv_th cells draining to it will count as a river)
+###river threshold is how many cells drain to a diff cell
 ```{r}
-subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=200, merge_th=0) 
+subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=500, merge_th=0) 
 ```
 *Note:Try changing the riv_th to change the density of the river network that is created. The merge threshold is used to lump together river segments with drainage areas below this threshold. Use help(CalcSubbasins) to learn more about the options for this function *
 
