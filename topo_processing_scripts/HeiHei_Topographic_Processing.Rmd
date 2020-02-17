@@ -43,7 +43,7 @@ nx=ncol(mask)
 maskT=t(mask[ny:1,]) #transposes to x,y
 
 #channel 
-channelR=raster("river_mask_new.tif")
+channelR=raster("river_mask_edit2.tif")
 channel=as.matrix(channelR)
 channelT=t(channel[ny:1,])
 
@@ -65,11 +65,11 @@ border=GetBorder(lakemaskT)
 
 #plot the inputs
 quartz()
-image.plot(border, main="Watershed Mask")
+#image.plot(border, main="Watershed Mask")
 #par(mfrow=c(2,2))
 #image.plot(demT, main="Elevation")
 #image.plot(maskT, main="Watershed Mask")
-#image.plot(channelT, main="River Network")
+image.plot(channelT, main="River Network")
 #image.plot(lakesT, main="Terminal Lakes")
 
 #quartz()
@@ -124,8 +124,8 @@ In QGIS you can use an edit tool to directly (serval tool) turn a cell on and of
 ```{r}
 #Find all of the border cells in your domain and identify all of the river cells that fall on border cells. 
 #These will be the starting point for processing
-#init=InitQueue(demT, domainmask=lakemaskT, initmask=channelT) 
-init=InitQueue(demT, border = border, initmask=channelT) 
+init=InitQueue(demT, domainmask=lakemaskT, initmask=channelT) 
+#init=InitQueue(demT, border = border, initmask=channelT) 
 #you can see the outputs of this function (and any function) by doing
 ls(init)
 
@@ -215,7 +215,7 @@ image.plot(area,main="drainage Area", zlim=c(0,200))
 Next you can use the flow direction file and the drainage areas to define a river network given a user specified drainage area threshold to define rivers (i.e. any cell with >=riv_th cells draining to it will count as a river)
 ###river threshold is how many cells drain to a diff cell
 ```{r}
-subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=500, merge_th=0) 
+subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=200, merge_th=0) 
 ```
 *Note:Try changing the riv_th to change the density of the river network that is created. The merge threshold is used to lump together river segments with drainage areas below this threshold. Use help(CalcSubbasins) to learn more about the options for this function *
 
