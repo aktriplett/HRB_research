@@ -1,0 +1,79 @@
+
+./mask-to-pfsol 
+--mask-back ./Solid_file_gr/Back_Border.asc
+--mask-front ./Solid_file_gr/Front_Border.asc
+--mask-right ./Solid_file_gr/Right_Border.asc
+--mask-left ./Solid_file_gr/Left_Border.asc
+--mask-bottom ./Solid_file_gr/Bottom_Border.asc
+--mask-top ./Solid_file_gr/TopNoRiver_Border.asc
+--depth 1000
+--side-patch-label 1
+--bottom-patch-label 3
+--pfsol ./garrett_domain1.pfsol
+--vtk ./garrett_domain1.vtk
+
+
+
+/Users/grapp/ParF/parflow/pftools/pf-mask-utilities/
+
+
+
+USAGE:
+
+   ./mask-to-pfsol  [--mask-back <string>] [--mask-front <string>]
+                    [--mask-right <string>] [--mask-left <string>]
+                    [--mask-bottom <string>] [--mask-top <string>] [--depth
+                    <float>] [--side-patch-label <int>]
+                    [--bottom-patch-label <int>] --pfsol <string> [--vtk
+                    <string>] [--mask <string>] [--] [--version] [-h]
+
+
+Where:
+
+   --mask-back <string>
+     Filename for back mask
+
+   --mask-front <string>
+     Filename for front mask
+
+   --mask-right <string>
+     Filename for right mask
+
+   --mask-left <string>
+     Filename for left mask
+
+   --mask-bottom <string>
+     Filename for bottom mask
+
+   --mask-top <string>
+     Filename for top mask
+
+   --depth <float>
+     Override depth from mask file
+
+   --side-patch-label <int>
+     Side index
+
+   --bottom-patch-label <int>
+     Bottom index
+
+   --pfsol <string>
+     (required)  PFSOL ouput filename
+
+   --vtk <string>
+     VTK ouput filename
+
+   --mask <string>
+     Mask filename
+
+   --,  --ignore_rest
+     Ignores the rest of the labeled arguments following this flag.
+
+   --version
+     Displays version information and exits.
+
+   -h,  --help
+     Displays usage information and exits.
+
+
+   Convert mask files to pfsol file

@@ -1,3 +1,11 @@
+#plotting masks
+quartz()
+#par(mfrow=c(2,2))
+#image.plot(demT, main="Elevation")
+#image.plot(maskT, main="Watershed Mask")
+image.plot(channelT, main="River Network")
+#image.plot(lakesT, main="Terminal Lakes")
+
 #plotting DEM smoothing
 quartz()
 par(mfrow=c(1,3))

@@ -1,0 +1,152 @@
+
+KINSOL starting step for time 1.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 1
+Lin. Its.:                210               210
+Func. Evals.:               1                 1
+PC Evals.:                  1                 1
+PC Solves:                210               210
+Lin. Conv. Fails:           1                 1
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.500000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 2
+Lin. Its.:                210               420
+Func. Evals.:               1                 2
+PC Evals.:                  1                 2
+PC Solves:                210               420
+Lin. Conv. Fails:           1                 2
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.250000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 3
+Lin. Its.:                210               630
+Func. Evals.:               1                 3
+PC Evals.:                  1                 3
+PC Solves:                210               630
+Lin. Conv. Fails:           1                 3
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.125000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 4
+Lin. Its.:                210               840
+Func. Evals.:               1                 4
+PC Evals.:                  1                 4
+PC Solves:                210               840
+Lin. Conv. Fails:           1                 4
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.062500
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 5
+Lin. Its.:                210              1050
+Func. Evals.:               1                 5
+PC Evals.:                  1                 5
+PC Solves:                210              1050
+Lin. Conv. Fails:           1                 5
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.031250
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 6
+Lin. Its.:                210              1260
+Func. Evals.:               1                 6
+PC Evals.:                  1                 6
+PC Solves:                210              1260
+Lin. Conv. Fails:           1                 6
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.015625
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 7
+Lin. Its.:                210              1470
+Func. Evals.:               1                 7
+PC Evals.:                  1                 7
+PC Solves:                210              1470
+Lin. Conv. Fails:           1                 7
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 0.007812
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=                       -nan  nfe=     1 
+KINSol return value 8
+---KINSOL_KRYLOV_FAILURE
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               1                 8
+Lin. Its.:                210              1680
+Func. Evals.:               1                 8
+PC Evals.:                  1                 8
+PC Solves:                210              1680
+Lin. Conv. Fails:           1                 8
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 

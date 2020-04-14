@@ -1,0 +1,2 @@
+mv: cannot stat '/parflow_input/slopexPF.pfb': No such file or directory
+/var/spool/pbs/mom_priv/jobs/1492476.chadmin1.ib0.cheyenne.ucar.edu.SC: line 13: 44476 Segmentation fault      tclsh HRB_parkinglot.tcl

@@ -43,7 +43,7 @@ nx=ncol(mask)
 maskT=t(mask[ny:1,]) #transposes to x,y
 
 #channel 
-channelR=raster("river_mask_edit2.tif")
+channelR=raster("river_mask_edit3.tif")
 channel=as.matrix(channelR)
 channelT=t(channel[ny:1,])
 
@@ -64,12 +64,12 @@ lakemaskT=maskT-lakesT
 border=GetBorder(lakemaskT)
 
 #plot the inputs
-quartz()
+#quartz()
 #image.plot(border, main="Watershed Mask")
 #par(mfrow=c(2,2))
 #image.plot(demT, main="Elevation")
 #image.plot(maskT, main="Watershed Mask")
-image.plot(channelT, main="River Network")
+#image.plot(channelT, main="River Network")
 #image.plot(lakesT, main="Terminal Lakes")
 
 #quartz()
@@ -124,7 +124,7 @@ In QGIS you can use an edit tool to directly (serval tool) turn a cell on and of
 ```{r}
 #Find all of the border cells in your domain and identify all of the river cells that fall on border cells. 
 #These will be the starting point for processing
-init=InitQueue(demT, domainmask=lakemaskT, initmask=channelT) 
+init=InitQueue(demT, domainmask=lakemaskT, initmask=channelT)#original
 #init=InitQueue(demT, border = border, initmask=channelT) 
 #you can see the outputs of this function (and any function) by doing
 ls(init)
@@ -189,7 +189,7 @@ init=InitQueue(trav1$dem,  border=RivBorder)
 
 ## Process all the cells outside the channel network
 t4=proc.time()
-travHS=D4TraverseB(trav1$dem, queue=init$queue, marked=init$marked, mask=lakemaskT, direction=trav1$direction, basins=trav1$basins, step=trav1$step, epsilon=0.1, printstep=F, nchunk=1000) #adding lakes in the mask
+travHS=D4TraverseB(trav1$dem, queue=init$queue, marked=init$marked, mask=lakemaskT, direction=trav1$direction, basins=trav1$basins, step=trav1$step, epsilon=0, printstep=F, nchunk=1000) #adding lakes in the mask
 t5=proc.time()
 print(paste("Total Time:" , round(t5[3]-t4[3],1), "sec"))
 
@@ -204,8 +204,22 @@ Before you can smooth your river network you need to know where it is. To do thi
 
 ```{r}
 area=drainageArea(travHS$direction, mask=maskT, printflag=F)
+testnumber = 3
+save(area, file=paste('area_test', testnumber, '.Rdata', sep=""))
+FolderName = getwd()
+#write it out as a tif
+#maybe try other method
+temp_matrix=matrix(0,nrow=nx,ncol=ny)
+var_temp=area
+temp_matrix[0:nx,0:ny]=var_temp
+temp_matrix2 = t(temp_matrix[, ny:1])
+temprast=maskR
+values(temprast)=temp_matrix2
+temprast=setMinMax(temprast)
+fout=paste(FolderName,testnumber,".drainageArea.tif", sep="")
+writeRaster(temprast,fout,format='GTiff', overwrite=T)
 
-image.plot(area,main="drainage Area", zlim=c(0,200))
+image.plot(area,main="drainage Area", zlim=c(0,300))
 
 ```
 
@@ -215,7 +229,7 @@ image.plot(area,main="drainage Area", zlim=c(0,200))
 Next you can use the flow direction file and the drainage areas to define a river network given a user specified drainage area threshold to define rivers (i.e. any cell with >=riv_th cells draining to it will count as a river)
 ###river threshold is how many cells drain to a diff cell
 ```{r}
-subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=200, merge_th=0) 
+subbasin=CalcSubbasins(travHS$direction, area=area, mask=lakemaskT, riv_th=500, merge_th=0) 
 ```
 *Note:Try changing the riv_th to change the density of the river network that is created. The merge threshold is used to lump together river segments with drainage areas below this threshold. Use help(CalcSubbasins) to learn more about the options for this function *
 
@@ -237,6 +251,7 @@ This function requires:
 5. A minimum elevation difference between designated stream cells and non stream cells that are draining to the stream segments (specified here as epsilon). 
 
 This function will calculate the elevation difference from the start to the end of every  segment and apply a constant delta  along the length of the segment to get from the top to the bottom. Then it will traverse back  up the drainage network checking that in the stream adjustment process no stream cells were raised above their surrounding bank cells using the user specified epsilon value to enforce a difference of at least epsilon between bank and stream cells. IF a bank cell needs to be raised to meet the epsilon threshold the algorithm will continue traversing up the hill slope according to the flow direction file raising cells until every neighboring  cell can drain with the required epsilon criteria. 
+knobs to turn: bank.epsilon, subbasin area threshold (change rv_thre, higher, less segments)
 ```{r}
 RivSmooth=RiverSmooth(dem=travHS$dem, travHS$direction, mask=lakemaskT, river.summary=subbasin$summary, river.segments=subbasin$segments, bank.epsilon=0.1)
 ```
@@ -273,11 +288,11 @@ Also you can use the *PathExtract* function to walk downstream from any point in
 
 For this example I'm using the subbasin$summary table to pick one of the stream segment starts as my starting point but you could give the PathExtract function any point in the domain as its starting point
 ```{r}
-segment=45 #pick a stream segment to walk down from, change this number to see a different segment 
+segment=5 #pick a stream segment to walk down from, change this number to see a different segment #5 looks like main stem
 
 #Use PathExtract to extract outputs along a flowpath
 start=c(subbasin$summary[segment,2], subbasin$summary[segment,3])
-streamline_old=PathExtract(input=travHS$dem, direction=travHS$direction, mask=lakemaskT, startpoint=start)
+streamline_old=PathExtract(input=travHS$dem, direction=travHS$direction, mask=lakemaskT, startpoint=start) #getting red error bar here but can't see error
 streamline_new=PathExtract(input=RivSmooth$dem.adj, direction=travHS$direction, mask=lakemaskT, startpoint=start)
 streamline_riv=PathExtract(input=subbasin$segments, direction=travHS$direction, mask=lakemaskT, startpoint=start)
 
@@ -323,6 +338,15 @@ The following optional inputs are also being used here (refer to the help("Slope
 1. minslope -  This ensures that the magnitude of all slopes is greater than or equal to this value along the flow directions given in the flow direction file
 2. maxslope - This sets a global maximum slope magnitude
 3. Secondary TH - If this is set to 0 then all slopes not along the primary flow directions (i.e. the x slope for a cell with a primary direction up or down,  or the y slope for a cell with a primary direction to the left or right) will be set to zero. If this is set to the default -1 value no adjustments will be made
+travHS smae - we never turn cells in a different direction but we do change elevation (rivSmooth)
+my simulations really sensitive to minslope because domain is so flat
+
+1. make a grpah of the slopes coming out of this step
+2. also run with travHS$dem and see how the slopes look
+3. look at rivsmooth$dem.adj and travHS$dem and try to see why/how crazy slopes are happening
+4. original DEM corrupted? plot earlier DEMs
+
+
 
 ```{r}
 slopesCalc=SlopeCalStan(dem=RivSmooth$dem.adj, mask=lakemaskT, direction=travHS$direction, minslope=1e-5, maxslope=1, dx=1000, dy=1000, secondaryTH=-1) 
@@ -331,6 +355,8 @@ slopesCalc=SlopeCalStan(dem=RivSmooth$dem.adj, mask=lakemaskT, direction=travHS$
 ## 4.2 Adjust the slopes along the river cells
 This function allows you to provide an alternate min slope for the primary directions of river cells than was used in the previous step
 Also with this function you can remove and seconary slopes (i.e. slopes normal to the primary direciton of flow) that would lead to additional outflow directions in river cells (Remove.Sec=TRUE)
+river slopes a re a little steeper than other hillslopes, remove.sex = TRUE means we only give a slope in the direction of flow
+this is ONLY happening for river cells
 ```{r}
 river.mask=subbasin$segments
 river.mask[river.mask>0]=1
@@ -375,16 +401,20 @@ for(j in 1:ny){
 
 
 write.table( t(c(nx,ny,1)), "SlopeX.sa", append=F, row.names=F, col.names=F)
-write.table(slopexPF, fout, append=T, row.names=F, col.names=F)
+#write.table(slopexPF, fout, append=T, row.names=F, col.names=F)
+write.table(slopexPF, "SlopeX.sa", append=T, row.names=F, col.names=F)
 
 write.table( t(c(nx,ny,1)), "SlopeY.sa", append=F, row.names=F, col.names=F)
-write.table(slopeyPF, fout, append=T, row.names=F, col.names=F)
+#write.table(slopeyPF, fout, append=T, row.names=F, col.names=F)
+write.table(slopeyPF, "SlopeY.sa", append=T, row.names=F, col.names=F)
 
 write.table( t(c(nx,ny,1)), "DEM.Processed.sa", append=F, row.names=F, col.names=F)
-write.table(DEMPF, fout, append=T, row.names=F, col.names=F)
+#write.table(DEMPF, fout, append=T, row.names=F, col.names=F)
+write.table(DEMPF, "DEM.Processed.sa", append=T, row.names=F, col.names=F)
 
 write.table( t(c(nx,ny,1)), "Flow.Direction.sa", append=F, row.names=F, col.names=F)
-write.table(DIRPF, fout, append=T, row.names=F, col.names=F)
+#write.table(DIRPF, fout, append=T, row.names=F, col.names=F)
+write.table(DIRPF, "Flow.Direction.sa", append=T, row.names=F, col.names=F)
 
 ```
 

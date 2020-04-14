@@ -1,0 +1,14 @@
+# Import the ParFlow TCL package
+lappend   auto_path $env(PARFLOW_DIR)/bin
+package   require parflow
+namespace import Parflow::*
+
+
+set indicator [~/Users/amanda_triplett/Documents/Heihe_Basin_Project/cheyenne/initial_topo_runs/slopeyPF.sa]
+pfsave #indicator -pfb slopeyPF.pfb
+
+set indicator [~/Users/amanda_triplett/Documents/Heihe_Basin_Project/cheyenne/initial_topo_runs/slopexPF.sa]
+pfsave #indicator -pfb slopexPF.pfb
+
+set indicator [~/Users/amanda_triplett/Documents/Heihe_Basin_Project/cheyenne/initial_topo_runs/DEMPF.sa]
+pfsave #indicator -pfb HRB.DEM.pfb

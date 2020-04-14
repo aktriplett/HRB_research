@@ -1,0 +1,9 @@
+./mask-to-pfsol \
+	--mask-top ../Top_Border.asc \
+	--mask-bottom ../Bottom_Border.asc \
+	--mask-left ../Left_Border.asc \
+	--mask-right ../Right_Border.asc \
+	--mask-front ../Front_Border.asc \
+	--mask-back ../Back_Border.asc \
+	--vtk SmallTest.vtk \
+	--pfsol SmallTest.pfsol

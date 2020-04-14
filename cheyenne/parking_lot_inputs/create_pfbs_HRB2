@@ -1,0 +1,46 @@
+lappend   auto_path $env(PARFLOW_DIR)/bin
+package   require parflow
+namespace import Parflow::*
+
+pfset     FileVersion    4
+
+#Converting from pfb to sa
+#set   slopex  [pfload -pfb LW.slopex.pfb]
+#pfsave $slopex	-sa LW.slopex.sa
+
+#set   slopey  [pfload -pfb LW.slopey.pfb]
+#pfsave $slopey	-sa LW.slopey.sa
+
+#Converting sa to pfb and silo
+set   slopex  [pfload -sa SlopeX.sa]
+pfsetgrid {404 548 1} {0.0 0.0 0.0} {1000.0 1000.0 1} $slopex
+#pfsave $slopex -silo LW.slopex_mod.silo
+pfsave $slopex -pfb  slopexPF.pfb
+
+set   slopey  [pfload -sa SlopeY.sa]
+pfsetgrid {404 548 1} {0.0 0.0 0.0} {1000.0 1000.0 1} $slopey
+#pfsave $slopey -silo LW.slopey_mod.silo
+pfsave $slopey -pfb  slopeyPF.pfb
+
+set   dem  [pfload -sa DEM.Processed.sa]
+pfsetgrid {404 548 1} {0.0 0.0 0.0} {1000.0 1000.0 1} $dem
+#pfsave $dem -silo HRB_DEM.silo
+pfsave $dem -pfb  HRB_DEM.pfb
+
+
+ #pfsetgrid {nx ny nz} {x0 y0 z0} {dx dy dz} dataset
+
+
+
+
+
+
+#I had this as an old method somewhere? maybe it is for something different?
+#set indicator [~/Users/amanda_triplett/Documents/Heihe_Basin_Project/cheyenne/initial_topo_runs/slopeyPF.sa]
+#pfsave #indicator -pfb slopeyPF.pfb
+
+#set indicator [~/Users/amanda_triplett/Documents/Heihe_Basin_Project/cheyenne/initial_topo_runs/slopexPF.sa]
+#pfsave #indicator -pfb slopexPF.pfb
+
+#set indicator [~/Users/amanda_triplett/Documents/Heihe_Basin_Project/cheyenne/initial_topo_runs/DEMPF.sa]
+#pfsave #indicator -pfb HRB.DEM.pfb

@@ -1,0 +1,25 @@
+Attaching 32601 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 26646 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 20578 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 23218 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 25955 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 21890 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 26954 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 24020 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 21618 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 71334 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Attaching 26541 to 1458927.chadmin1.ib0.cheyenne.ucar.edu
+Node 0: Using process grid (18,24,1)
+Node 0: Well Information
+Node 0: No Wells.
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 20656 RUNNING AT r8i3n35.ib0.cheyenne.ucar.edu
+=   EXIT CODE: 11
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+   Intel(R) MPI Library troubleshooting guide:
+      https://software.intel.com/node/561764
+===================================================================================

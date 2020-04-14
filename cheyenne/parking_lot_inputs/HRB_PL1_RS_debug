@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -N HRB_PLtest1
+#PBS -A UCSM0009
+#PBS -l walltime=01:00:00
+#PBS -q debug
+#PBS -j oe
+#PBS -o log1.oe
+#PBS -m abe
+#PBS -M aktriplett@email.arizona.edu
+#PBS -l select=3:ncpus=36:mpiprocs=36
+
+### Run the executable
+tclsh HRB_parkinglot.tcl
