@@ -52,9 +52,12 @@ pfset GeomInput.domaininput.GeomName            domain
 
 pfset GeomInput.domaininput.InputType           SolidFile
 pfset GeomInput.domaininput.GeomNames           domain
-pfset GeomInput.domaininput.FileName            ""../parflow_input/HRB_domain_init.pfsol"
+pfset GeomInput.domaininput.FileName            "../parflow_input/HRB_domain_init.pfsol"
 
 pfset Geom.domain.Patches                       "left right front back bottom top"
+#order needs need to match the number assigned in the solid file creation
+
+
 
 
 #--------------------------------------------
@@ -120,23 +123,15 @@ pfset Contaminants.Names			                      ""
 pfset Geom.Retardation.GeomNames                    ""
 
 #-----------------------------------------------------------------------------
+# Wells
+#-----------------------------------------------------------------------------
+pfset Wells.Names                                   ""
+
+#-----------------------------------------------------------------------------
 # Gravity
 #-----------------------------------------------------------------------------
 
 pfset Gravity				                                1.0
-
-#-----------------------------------------------------------------------------
-# Setup timing info
-#-----------------------------------------------------------------------------
-
-#
-pfset TimingInfo.BaseUnit                           1.0
-pfset TimingInfo.StartCount                         0
-pfset TimingInfo.StartTime                          0.0
-pfset TimingInfo.StopTime                           50.0
-pfset TimingInfo.DumpInterval                       -1
-pfset TimeStep.Type                                 Constant
-pfset TimeStep.Value                                1.0
 
 #-----------------------------------------------------------------------------
 # Porosity
@@ -146,12 +141,6 @@ pfset Geom.Porosity.GeomNames                       "domain"
 
 pfset Geom.domain.Porosity.Type                     Constant
 pfset Geom.domain.Porosity.Value                    0.00000001
-
-#-----------------------------------------------------------------------------
-# Domain
-#-----------------------------------------------------------------------------
-
-pfset Domain.GeomName                               domain
 
 #-----------------------------------------------------------------------------
 # Relative Permeability
@@ -175,12 +164,43 @@ pfset Geom.domain.Saturation.N                      2.0
 pfset Geom.domain.Saturation.SRes                   0.2
 pfset Geom.domain.Saturation.SSat                   1.0
 
+#---------------------------------------------------------
+# Mannings coefficient
+#---------------------------------------------------------
+
+pfset Mannings.Type                                  "Constant"
+pfset Mannings.GeomNames                             "domain"
+pfset Mannings.Geom.domain.Value                     2.e-6
+pfset Mannings.Geom.domain.Value                     0.0000044
+
+#-----------------------------------------------------------------------------
+# Phase sources:
+#-----------------------------------------------------------------------------
+
+pfset PhaseSources.water.Type                         Constant
+pfset PhaseSources.water.GeomNames                    domain
+pfset PhaseSources.water.Geom.domain.Value            0.0
+
+#-----------------------------------------------------------------------------
+# Setup timing info
+#-----------------------------------------------------------------------------
+
+#
+pfset TimingInfo.BaseUnit                           1.0
+pfset TimingInfo.StartCount                         0
+pfset TimingInfo.StartTime                          0.0
+pfset TimingInfo.StopTime                           50.0
+pfset TimingInfo.DumpInterval                       -1
+pfset TimeStep.Type                                 Constant
+pfset TimeStep.Value                                1.0
 
 
 #-----------------------------------------------------------------------------
-# Wells
+# Domain
 #-----------------------------------------------------------------------------
-pfset Wells.Names                                   ""
+
+pfset Domain.GeomName                               domain
+
 
 #-----------------------------------------------------------------------------
 # Time Cycles
@@ -198,21 +218,6 @@ pfset Cycle.rainrec.rain.Length                     5
 pfset Cycle.rainrec.rec.Length                      300
 pfset Cycle.rainrec.Repeat                          -1
 
-#---------------------------------------------------------
-# Mannings coefficient
-#---------------------------------------------------------
-
-pfset Mannings.Type                                  "Constant"
-pfset Mannings.GeomNames                             "domain"
-pfset Mannings.Geom.domain.Value                     2.e-6
-pfset Mannings.Geom.domain.Value                     0.0000044
-#-----------------------------------------------------------------------------
-# Phase sources:
-#-----------------------------------------------------------------------------
-
-pfset PhaseSources.water.Type                         Constant
-pfset PhaseSources.water.GeomNames                    domain
-pfset PhaseSources.water.Geom.domain.Value            0.0
 
 #-----------------------------------------------------------------------------
 # Exact solution specification for error calculations

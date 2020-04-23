@@ -1,0 +1,12 @@
+- To run make the solid file cd to the pf-mask-utilities directory and run
+the following from command line:
+
+./mask-to-pfsol \
+	--mask-top ../TopNoRiver_Border.asc \
+	--mask-bottom ../Bottom_Border.asc \
+	--mask-left ../Left_Border.asc \
+	--mask-right ../Right_Border.asc \
+	--mask-front ../Front_Border.asc \
+	--mask-back ../Back_Border.asc \
+	--vtk HRB_domain_solid_test.vtk \
+	--pfsol HRB_domain_init_solid_test.pfsol

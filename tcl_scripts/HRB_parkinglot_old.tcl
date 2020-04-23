@@ -10,7 +10,7 @@ pfset     FileVersion    4
 #-----------------------------------------------------------------------------
 # Setup run name and location
 #-----------------------------------------------------------------------------
-set runname "HRB_parkinglot_test1"
+set runname "troubleshoot_HRB_parkinglot"
 file mkdir $runname
 cd $runname
 pfset TopoSlopes.Elevation.FileName ../parflow_input/HRB_DEM.pfb

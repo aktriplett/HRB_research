@@ -1,0 +1,826 @@
+
+KINSOL starting step for time 1.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=          15049003.28925474  nfe=     1 
+KINSol nni=    1 fnorm=           11139316.8455563 nfe=     4
+KINSol nni=    2 fnorm=         0.1552132335184972 nfe=     7
+KINSol nni=    3 fnorm=      1.591539848450167e-09 nfe=    10
+KINSol return value 1
+---KINSOL_SUCCESS
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               3                 3
+Lin. Its.:                  3                 3
+Func. Evals.:              10                10
+PC Evals.:                  3                 3
+PC Solves:                  6                 6
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 2.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=          15049003.28925474  nfe=     1 
+KINSol nni=    1 fnorm=        0.06817213067610245 nfe=     4
+KINSol nni=    2 fnorm=      3.008483099152433e-09 nfe=     7
+KINSol return value 1
+---KINSOL_SUCCESS
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               2                 5
+Lin. Its.:                  2                 5
+Func. Evals.:               7                17
+PC Evals.:                  2                 5
+PC Solves:                  4                10
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 3.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=          15049003.28925474  nfe=     1 
+KINSol nni=    1 fnorm=        0.00365686337748845 nfe=     4
+KINSol nni=    2 fnorm=      8.759672805465957e-09 nfe=     7
+KINSol return value 1
+---KINSOL_SUCCESS
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               2                 7
+Lin. Its.:                  2                 7
+Func. Evals.:               7                24
+PC Evals.:                  2                 7
+PC Solves:                  4                14
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 4.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=          15049003.28925474  nfe=     1 
+KINSol nni=    1 fnorm=        0.05592145555113779 nfe=     4
+KINSol nni=    2 fnorm=      2.189918201366489e-09 nfe=     7
+KINSol return value 1
+---KINSOL_SUCCESS
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               2                 9
+Lin. Its.:                  2                 9
+Func. Evals.:               7                31
+PC Evals.:                  2                 9
+PC Solves:                  4                18
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 5.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+KINSolInit nni=    0  fnorm=          15049003.28925474  nfe=     1 
+KINSol nni=    1 fnorm=        0.08211476713888817 nfe=     4
+KINSol nni=    2 fnorm=      6.569754604099467e-09 nfe=     7
+KINSol return value 1
+---KINSOL_SUCCESS
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               2                11
+Lin. Its.:                  2                11
+Func. Evals.:               7                38
+PC Evals.:                  2                11
+PC Solves:                  4                22
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 6.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                13
+Func. Evals.:               0                38
+PC Evals.:                  2                13
+PC Solves:                  4                26
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 7.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                15
+Func. Evals.:               0                38
+PC Evals.:                  2                15
+PC Solves:                  4                30
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 8.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                17
+Func. Evals.:               0                38
+PC Evals.:                  2                17
+PC Solves:                  4                34
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 9.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                19
+Func. Evals.:               0                38
+PC Evals.:                  2                19
+PC Solves:                  4                38
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 10.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                21
+Func. Evals.:               0                38
+PC Evals.:                  2                21
+PC Solves:                  4                42
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 11.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                23
+Func. Evals.:               0                38
+PC Evals.:                  2                23
+PC Solves:                  4                46
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 12.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                25
+Func. Evals.:               0                38
+PC Evals.:                  2                25
+PC Solves:                  4                50
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 13.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                27
+Func. Evals.:               0                38
+PC Evals.:                  2                27
+PC Solves:                  4                54
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 14.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                29
+Func. Evals.:               0                38
+PC Evals.:                  2                29
+PC Solves:                  4                58
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 15.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                31
+Func. Evals.:               0                38
+PC Evals.:                  2                31
+PC Solves:                  4                62
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 16.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                33
+Func. Evals.:               0                38
+PC Evals.:                  2                33
+PC Solves:                  4                66
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 17.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                35
+Func. Evals.:               0                38
+PC Evals.:                  2                35
+PC Solves:                  4                70
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 18.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                37
+Func. Evals.:               0                38
+PC Evals.:                  2                37
+PC Solves:                  4                74
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 19.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                39
+Func. Evals.:               0                38
+PC Evals.:                  2                39
+PC Solves:                  4                78
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 20.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                41
+Func. Evals.:               0                38
+PC Evals.:                  2                41
+PC Solves:                  4                82
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 21.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                43
+Func. Evals.:               0                38
+PC Evals.:                  2                43
+PC Solves:                  4                86
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 22.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                45
+Func. Evals.:               0                38
+PC Evals.:                  2                45
+PC Solves:                  4                90
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 23.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                47
+Func. Evals.:               0                38
+PC Evals.:                  2                47
+PC Solves:                  4                94
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 24.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                49
+Func. Evals.:               0                38
+PC Evals.:                  2                49
+PC Solves:                  4                98
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 25.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                51
+Func. Evals.:               0                38
+PC Evals.:                  2                51
+PC Solves:                  4               102
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 26.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                53
+Func. Evals.:               0                38
+PC Evals.:                  2                53
+PC Solves:                  4               106
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 27.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                55
+Func. Evals.:               0                38
+PC Evals.:                  2                55
+PC Solves:                  4               110
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 28.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                57
+Func. Evals.:               0                38
+PC Evals.:                  2                57
+PC Solves:                  4               114
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 29.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                59
+Func. Evals.:               0                38
+PC Evals.:                  2                59
+PC Solves:                  4               118
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 30.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                61
+Func. Evals.:               0                38
+PC Evals.:                  2                61
+PC Solves:                  4               122
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 31.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                63
+Func. Evals.:               0                38
+PC Evals.:                  2                63
+PC Solves:                  4               126
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 32.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                65
+Func. Evals.:               0                38
+PC Evals.:                  2                65
+PC Solves:                  4               130
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 33.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                67
+Func. Evals.:               0                38
+PC Evals.:                  2                67
+PC Solves:                  4               134
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 34.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                69
+Func. Evals.:               0                38
+PC Evals.:                  2                69
+PC Solves:                  4               138
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 35.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                71
+Func. Evals.:               0                38
+PC Evals.:                  2                71
+PC Solves:                  4               142
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 36.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                73
+Func. Evals.:               0                38
+PC Evals.:                  2                73
+PC Solves:                  4               146
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 37.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                75
+Func. Evals.:               0                38
+PC Evals.:                  2                75
+PC Solves:                  4               150
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 38.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                77
+Func. Evals.:               0                38
+PC Evals.:                  2                77
+PC Solves:                  4               154
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 39.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                79
+Func. Evals.:               0                38
+PC Evals.:                  2                79
+PC Solves:                  4               158
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 40.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                81
+Func. Evals.:               0                38
+PC Evals.:                  2                81
+PC Solves:                  4               162
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 41.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                83
+Func. Evals.:               0                38
+PC Evals.:                  2                83
+PC Solves:                  4               166
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 42.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                85
+Func. Evals.:               0                38
+PC Evals.:                  2                85
+PC Solves:                  4               170
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 43.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                87
+Func. Evals.:               0                38
+PC Evals.:                  2                87
+PC Solves:                  4               174
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 44.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                89
+Func. Evals.:               0                38
+PC Evals.:                  2                89
+PC Solves:                  4               178
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 45.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                91
+Func. Evals.:               0                38
+PC Evals.:                  2                91
+PC Solves:                  4               182
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 46.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                93
+Func. Evals.:               0                38
+PC Evals.:                  2                93
+PC Solves:                  4               186
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 47.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                95
+Func. Evals.:               0                38
+PC Evals.:                  2                95
+PC Solves:                  4               190
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 48.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                97
+Func. Evals.:               0                38
+PC Evals.:                  2                97
+PC Solves:                  4               194
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 49.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2                99
+Func. Evals.:               0                38
+PC Evals.:                  2                99
+PC Solves:                  4               198
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
+
+KINSOL starting step for time 50.000000
+scsteptol used:        1e-30 
+fnormtol  used:        1e-06 
+
+-------------------------------------------------- 
+                    Iteration             Total
+Nonlin. Its.:               0                11
+Lin. Its.:                  2               101
+Func. Evals.:               0                38
+PC Evals.:                  2               101
+PC Solves:                  4               202
+Lin. Conv. Fails:           0                 0
+Beta Cond. Fails:           0                 0
+Backtracks:                 0                 0
+-------------------------------------------------- 
