@@ -1,5 +1,0 @@
-Attaching 60060 to 1141880.chadmin1.ib0.cheyenne.ucar.edu
-Attaching 59348 to 1141880.chadmin1.ib0.cheyenne.ucar.edu
-Node 0: Using process grid (9,12,1)
-Node 0: Well Information
-Node 0: No Wells.

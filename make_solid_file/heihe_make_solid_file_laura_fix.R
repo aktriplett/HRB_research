@@ -2,8 +2,8 @@
 
 rm(list=ls())
 
-setwd("~/Documents/Heihe_Basin_Project/Heihe_R/data_output/topo_output") #this is where my domain mask lives
-
+setwd("~/Documents/Heihe_Basin_Project/Heihe_R/data_output/topo_output")
+#setwd("/Users/laura/Documents/Research/HeiHei/solid_file_workflow")
 ##########################################
 #Source Libraries and functions
 ##uncomment the devtools library and the install command if you need to install PriorityFlow
@@ -17,17 +17,7 @@ library("rgdal")
 
 ##########################################
 # Inputs
-domain_mask = raster("domain_mask.tif") #read in the tif of your domain
-
-#below is the old way which is likely not flipped properly
-#ny=nrow(domain_mask)
-#nx=ncol(domain_mask)
-#mask_mat=flip(domain_mask, direction='y') #this code flips it when in the border writing it specifies it is done with untransposed matrices
-#plot(mask_mat)
-#ny=nrow(mask_mat)
-#nx=ncol(mask_mat)
-
-### below this is the fix that worked
+domain_mask = raster("domain_mask.tif")
 domain_mat=as.matrix(domain_mask)
 ny=nrow(domain_mat)
 nx=ncol(domain_mat)
@@ -36,15 +26,17 @@ nx=ncol(domain_mat)
 domain_matT=t(domain_mat[ny:1,])
 image.plot(domain_matT)
 
+
 #Use the un-transposed data to plot
 mask_mat=domain_mat
+
+
 
 ##########################################
 # Write out all the borders for the solid file
 
 # Find all the border cells 
 # Note this is all done with the un-transposed matrices
-
 ###Back
 #Back borders occur where mask[y+1]-mask[y] is negative (i.e. the cell above is a zero and the cell is inside the mask, i.e. a 1)
 back_mat=matrix(0, ncol=nx, nrow=ny)
@@ -52,7 +44,7 @@ back_mat[2:ny, ]=mask_mat[1:(ny-1), ] - mask_mat[2:ny, ]
 back_mat[1,]=-1*mask_mat[1,] #the upper boundary of the top row
 back_mat[back_mat>0]=0
 back_mat=-1*back_mat
-image.plot(t(back_mat[ny:1,]))
+image.plot(t(back_mat[ny:1,]), zlim=c(0.5,1))
 
 #Front
 #Front borders occure where mask[y-1]-mask[y] is negative (i.e. the cell above is a zero and the cell is inside the mask, i.e. a 1)
@@ -61,7 +53,7 @@ front_mat[1:(ny-1), ]=mask_mat[2:ny, ] - mask_mat[1:(ny-1), ]
 front_mat[ny,]=-1*mask_mat[ny,] #the lower boundary of the bottom row
 front_mat[front_mat>0]=0
 front_mat=-1*front_mat 
-image.plot(t(front_mat[ny:1,]))
+image.plot(t(front_mat[ny:1,]), zlim=c(0.5,1))
 
 #Left
 #Left borders occure where mask[x-1]-mask[x] is negative 
@@ -70,7 +62,7 @@ left_mat[,2:nx]=mask_mat[,1:(nx-1)] - mask_mat[,2:nx]
 left_mat[,1]=-1*mask_mat[,1] #the left boundary of the first column
 left_mat[left_mat>0]=0
 left_mat=-1*left_mat 
-image.plot(t(left_mat[ny:1,]))
+image.plot(t(left_mat[ny:1,]), zlim=c(0.5,1))
 
 #Right
 #Right borders occure where mask[x+1]-mask[x] is negative 
@@ -79,7 +71,7 @@ right_mat[,1:(nx-1)]=mask_mat[,2:nx] - mask_mat[,1:(nx-1)]
 right_mat[,nx]=-1*mask_mat[,nx] #the right boundary of the last column
 right_mat[right_mat>0]=0
 right_mat=-1*right_mat 
-image.plot(t(right_mat[ny:1,]))
+image.plot(t(right_mat[ny:1,]), zlim=c(0.5,1))
 
 #write out the patches in a PF format
 left=right=front=back=rep(0, nx*ny)
@@ -95,17 +87,17 @@ for(j in ny:1){
   }
 }
 #Change wd
-setwd("/Users/amanda_triplett/Documents/HRB_research/make_solid_file")
-fout="Solid_file/Left_Border_flip_num_change.sa"
+#setwd("/Users/amanda_triplett/Documents/HRB_research/make_solid_file")
+fout="Solid_file/Left_Border.sa"
 write.table( t(c(nx,ny,1)), fout, append=F, row.names=F, col.names=F)
 write.table(left, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Right_Border_flip_num_change.sa"
+fout="Solid_file/Right_Border.sa"
 write.table( t(c(nx,ny,1)), fout, append=F, row.names=F, col.names=F)
 write.table(right, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Front_Border_flip_num_change.sa"
+fout="Solid_file/Front_Border.sa"
 write.table( t(c(nx,ny,1)), fout, append=F, row.names=F, col.names=F)
 write.table(front, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Back_Border_flip_num_change.sa"
+fout="Solid_file/Back_Border.sa"
 write.table( t(c(nx,ny,1)), fout, append=F, row.names=F, col.names=F)
 write.table(back, fout, append=T, row.names=F, col.names=F)
 
@@ -133,22 +125,23 @@ header6="NODATA_value  0.0"
 
 header=rbind(header1, header2, header3, header4, header5, header6)
 
-fout="Solid_file/Left_Border_flip_num_change.asc"
+fout="Solid_file/Left_Border.asc"
 write.table(header, fout, append=F, row.names=F, col.names=F, quote=F)
 write.table(leftA, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Right_Border_flip_num_change.asc"
+fout="Solid_file/Right_Border.asc"
 write.table(header, fout, append=F, row.names=F, col.names=F, quote=F)
 write.table(rightA, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Front_Border_flip_num_change.asc"
+fout="Solid_file/Front_Border.asc"
 write.table(header, fout, append=F, row.names=F, col.names=F, quote=F)
 write.table(frontA, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Back_Border_flip_num_change.asc"
+fout="Solid_file/Back_Border.asc"
 write.table(header, fout, append=F, row.names=F, col.names=F, quote=F)
 write.table(backA, fout, append=T, row.names=F, col.names=F)
 
 # Deal with top and bottom patches
-# 2 = top of domain
-# 3 = bottom of domain
+# 3 = regular overland boundary
+# 4 = River
+# 6 = bottom
 
 #come up with a river mask
 #rivermask=Areaclip
@@ -160,12 +153,12 @@ write.table(backA, fout, append=T, row.names=F, col.names=F)
 #rivermask_mat=t(rivermask[,nyclip:1])
 
 #top
-top_mat=mask_mat*3
+top_mat=mask_mat*2
 #top_mat[rivermask_mat==1]=4 #to make a top with rivers
 image.plot(top_mat)
 
 #bottom
-bottom_mat=mask_mat*6
+bottom_mat=mask_mat*3
 
 #write out the patches in a PF format
 bottom=top=rep(0, nx*ny)
@@ -178,10 +171,10 @@ for(j in ny:1){
     jj=jj+1
   }
 }
-fout="Solid_file/Bottom_Border_flip_num_change.sa"
+fout="Solid_file/Bottom_Border.sa"
 write.table( t(c(nx,ny,1)), fout, append=F, row.names=F, col.names=F)
 write.table(bottom, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Top_Border_flip_num_change.sa"
+fout="Solid_file/TopNoRiver_Border.sa"
 write.table( t(c(nx,ny,1)), fout, append=F, row.names=F, col.names=F)
 write.table(top, fout, append=T, row.names=F, col.names=F)
 
@@ -196,9 +189,9 @@ for(j in 1:ny){
     jj=jj+1
   }
 }
-fout="Solid_file/Bottom_Border_flip_num_change.asc"
+fout="Solid_file/Bottom_Border.asc"
 write.table( header, fout, append=F, row.names=F, col.names=F, quote=F)
 write.table(bottomA, fout, append=T, row.names=F, col.names=F)
-fout="Solid_file/Top_Border_flip_num_change.asc"
+fout="Solid_file/TopNoRiver_Border.asc"
 write.table( header, fout, append=F, row.names=F, col.names=F, quote=F)
 write.table(topA, fout, append=T, row.names=F, col.names=F)

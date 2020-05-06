@@ -1,0 +1,40 @@
+- To run make the solid file cd to the pf-mask-utilities directory and run
+the following from command line:
+#you can't have spaces between these lines
+
+##Top tests no flipping when finding borders, and num change from 1,3,6 to 1,2,3
+./mask-to-pfsol \
+	--mask-top ../Top_Border_noflip_num_change.asc \
+	--mask-bottom ../Bottom_Border_noflip_num_change.asc \
+	--mask-left ../Left_Border_noflip_num_change.asc \
+	--mask-right ../Right_Border_noflip_num_change.asc \
+	--mask-front ../Front_Border_noflip_num_change.asc \
+	--mask-back ../Back_Border_noflip_num_change.asc \
+	--vtk HRB_solid_noflip_num_change.vtk \
+	--pfsol HRB_solid_noflip_num_change.pfsol
+
+
+##Middle tests no flip, no num change
+./mask-to-pfsol \
+	--mask-top ../Top_Border_noflip_no_num_change.asc \
+	--mask-bottom ../Bottom_Border_noflip_no_num_change.asc \
+	--mask-left ../Left_Border_noflip_no_num_change.asc \
+	--mask-right ../Right_Border_noflip_no_num_change.asc \
+	--mask-front ../Front_Border_noflip_no_num_change.asc \
+	--mask-back ../Back_Border_noflip_no_num_change.asc \
+	--vtk HRB_solid_noflip_no_num_change.vtk \
+	--pfsol HRB_solid_noflip_no_num_change.pfsol
+
+
+
+
+##Bottom tests yes flip, yes num change
+./mask-to-pfsol \
+	--mask-top ../Top_Border_flip_num_change.asc \
+	--mask-bottom ../Bottom_Border_flip_num_change.asc \
+	--mask-left ../Left_Border_flip_num_change.asc \
+	--mask-right ../Right_Border_flip_num_change.asc \
+	--mask-front ../Front_Border_flip_num_change.asc \
+	--mask-back ../Back_Border_flip_num_change.asc \
+	--vtk HRB_solid_flip_num_change.vtk \
+	--pfsol HRB_solid_flip_num_change.pfsol
