@@ -30,11 +30,27 @@ the following from command line:
 
 ##Bottom tests yes flip, yes num change
 ./mask-to-pfsol \
-	--mask-top ../Top_Border_flip_num_change.asc \
-	--mask-bottom ../Bottom_Border_flip_num_change.asc \
-	--mask-left ../Left_Border_flip_num_change.asc \
-	--mask-right ../Right_Border_flip_num_change.asc \
-	--mask-front ../Front_Border_flip_num_change.asc \
-	--mask-back ../Back_Border_flip_num_change.asc \
-	--vtk HRB_solid_flip_num_change.vtk \
-	--pfsol HRB_solid_flip_num_change.pfsol
+	--mask-top ../Top_Border_no_num_change.asc \
+	--mask-bottom ../Bottom_Border_no_num_change.asc \
+	--mask-left ../Left_Border_no_num_change.asc \
+	--mask-right ../Right_Border_no_num_change.asc \
+	--mask-front ../Front_Border_no_num_change.asc \
+	--mask-back ../Back_Border_no_num_change.asc \
+	--vtk HRB_solid_no_num_change.vtk \
+	--pfsol HRB_solid_no_num_change.pfsol
+
+
+
+
+
+
+	##final masks, all changes made (no flip, num 1,2,3)
+	./mask-to-pfsol \
+		--mask-top ../Top_Border_final.asc \
+		--mask-bottom ../Bottom_Border_final.asc \
+		--mask-left ../Left_Border_final.asc \
+		--mask-right ../Right_Border_final.asc \
+		--mask-front ../Front_Border_final.asc \
+		--mask-back ../Back_Border_final.asc \
+		--vtk HRB_solid_final.vtk \
+		--pfsol HRB_solid_final.pfsol

@@ -20,8 +20,6 @@ cd $runname
 # Set Processor topology
 #-----------------------------------------------------------------------------
 #I set the script to run on 432 cores, total procs is P*Q*R
-#pfset Process.Topology.P 18
-#pfset Process.Topology.Q 24
 pfset Process.Topology.P 1
 pfset Process.Topology.Q 1
 pfset Process.Topology.R 1
@@ -50,9 +48,7 @@ pfset GeomInput.domaininput.GeomName            domain
 
 pfset GeomInput.domaininput.InputType           SolidFile
 pfset GeomInput.domaininput.GeomNames           domain
-#pfset GeomInput.domaininput.FileName            "../parflow_input/HRB_solid_noflip_num_change.pfsol"
-
-pfset GeomInput.domaininput.FileName            "HRB_solid_noflip_num_change.pfsol"
+pfset GeomInput.domaininput.FileName            "../parflow_input/HRB_solid_no_num_change.pfsol"
 
 pfset Geom.domain.Patches                       "sides top bottom"
 #order needs need to match the number assigned in the solid file creation
@@ -254,7 +250,7 @@ pfset Solver.AbsTol                                    1E-9
 #---------------------------------------------------------
 pfset ICPressure.Type                                   HydroStaticPatch
 pfset ICPressure.GeomNames                              domain
-pfset Geom.domain.ICPressure.Value                      1.2
+pfset Geom.domain.ICPressure.Value                      0.0
 
 pfset Geom.domain.ICPressure.RefGeom                    domain
 pfset Geom.domain.ICPressure.RefPatch                   bottom
@@ -285,21 +281,21 @@ pfset Solver.Linear.Preconditioner.PCMatrixType          PFSymmetric
 #-----------------------------------------------------------------------------
 pfset TopoSlopesX.Type                                "PFBFile"
 pfset TopoSlopesX.GeomNames                           "domain"
-pfset TopoSlopesX.FileName                            slopexPF.pfb
+pfset TopoSlopesX.FileName                            "../parflow_input/slopexPF.pfb"
 
 #-----------------------------------------------------------------------------
 # Topo slopes in y-direction
 #-----------------------------------------------------------------------------
 pfset TopoSlopesY.Type                                "PFBFile"
 pfset TopoSlopesY.GeomNames                           "domain"
-pfset TopoSlopesY.FileName                            slopeyPF.pfb
+pfset TopoSlopesY.FileName                            "../parflow_input/slopeyPF.pfb"
 
 
 #-----------------------------------------------------------------------------
 # Distribute inputs
 #-----------------------------------------------------------------------------
-pfdist -nz 1 slopexPF.pfb
-pfdist -nz 1 slopeyPF.pfb
+pfdist -nz 1 ../parflow_input/slopexPF.pfb
+pfdist -nz 1 ../parflow_input/slopeyPF.pfb
 
 
 
@@ -313,8 +309,8 @@ pfrun    $runname
 # Undistribute outputs
 #-----------------------------------------------------------------------------
 pfundist $runname
-pfundist slopexPF.pfb
-pfundist slopeyPF.pfb
+pfundist ../parflow_input/slopexPF.pfb
+pfundist ../parflow_input/slopeyPF.pfb
 
 
 puts "ParFlow run Complete"

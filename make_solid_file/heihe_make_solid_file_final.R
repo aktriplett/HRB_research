@@ -19,15 +19,6 @@ library("rgdal")
 # Inputs
 domain_mask = raster("domain_mask.tif") #read in the tif of your domain
 
-#below is the old way which flips improperly
-#ny=nrow(domain_mask)
-#nx=ncol(domain_mask)
-#mask_mat=flip(domain_mask, direction='y') #this code flips it when in the border writing it specifies it is done with untransposed matrices
-#plot(mask_mat)
-#ny=nrow(mask_mat)
-#nx=ncol(mask_mat)
-
-### below this is the fix that worked
 domain_mat=as.matrix(domain_mask)
 ny=nrow(domain_mat)
 nx=ncol(domain_mat)
@@ -149,15 +140,6 @@ write.table(backA, fout, append=T, row.names=F, col.names=F)
 # Deal with top and bottom patches
 # 2 = top of domain
 # 3 = bottom of domain
-
-#come up with a river mask
-#rivermask=Areaclip
-#areath=50 #drainage area threshold for rivers
-#rivermask[rivermask<areath]=0
-#rivermask[rivermask>0]=1
-#rivermask=rivermask*Maskclip
-#image.plot(rivermask)
-#rivermask_mat=t(rivermask[,nyclip:1])
 
 #top
 top_mat=mask_mat*2
