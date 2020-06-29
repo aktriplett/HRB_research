@@ -1,0 +1,9 @@
+# Import the ParFlow TCL package
+lappend   auto_path $env(PARFLOW_DIR)/bin
+package   require parflow
+namespace import Parflow::*
+
+
+set indicator [pfload -sa pf_ssn_ind_test.sa]
+pfsetgrid {548 404 15} {0.0 0.0 0.0} {1000.0 1000.0 100.0} $indicator
+pfsave $indicator -pfb pf_ssn_ind_test.pfb

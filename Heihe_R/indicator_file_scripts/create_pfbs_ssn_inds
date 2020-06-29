@@ -1,0 +1,11 @@
+# Import the ParFlow TCL package
+lappend   auto_path $env(PARFLOW_DIR)/bin
+package   require parflow
+namespace import Parflow::*
+
+
+set indicator [pfload -sa pf_ssn_ind.sa]
+pfsetgrid {404 548 15} {0.0 0.0 0.0} {1000.0 1000.0 67} $indicator
+pfsave $indicator -pfb pf_ssn_ind.pfb
+
+#not sure what to make the 67... 1072? Total dz? Something else?

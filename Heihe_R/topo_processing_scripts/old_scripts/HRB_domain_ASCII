@@ -1,0 +1,37 @@
+#Need one of these for K, SS, SY and VKA?
+## SY indicators could be used when we convert to porosity
+
+<INTEGER : NX>  <INTEGER : NY>  <INTEGER : NZ>
+
+FOR k=0 TO NZ-1
+BEGIN
+    FOR j=0 TO NY-1
+    BEGIN
+        FOR i=0 TO NX-1
+        BEGIN
+              <double : data_ijk> #What is this part exactly? I assume where I input the necessary indicator data?
+        END
+    END
+END
+
+404  548  15 #OR 404:NX 548:NY 15:NZ
+
+FOR k=0 TO 14 #NZ-1 instead of 14?
+BEGIN
+    FOR j=0 TO 547
+    BEGIN
+        FOR i=0 TO 403
+        BEGIN
+              <double : data_ijk> #What is this part exactly? I assume where I input the necessary indicator data?
+        END
+    END
+END
+
+
+## Importing and Converting ASCII file
+#example
+set name [~/Documents/Heihe_Basin_Project/Heihe_R/data_output/ascii_k_ind.sa]
+pfsave dataset -filetype filename
+#with input
+set indicator [~/Documents/Heihe_Basin_Project/Heihe_R/data_output/ascii_k_ind.sa]
+pfsave #indicator -pfb HRB_k_ind.pfb
